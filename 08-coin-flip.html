@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>coin-flip-game</title>
+</head>
+<body>
+    <!--buttons-->
+    <button onclick="
+        playGame('heads');
+    ">heads</button>
+    <button onclick="
+        playGame('tails');
+    ">tails</button>
+    <script>
+        // score -Start //
+
+        const score = JSON.parse(localStorage.getItem('score')) || {
+            win : 0,
+            loss : 0
+        };
+        // score - End //
+        // play Game - start  //
+        function  playGame(guess){
+
+            const result = pickComputerMove();
+            
+            let winOrLoss = '';
+            
+            if (result === guess){
+                winOrLoss = 'You Win';
+            }
+            else {
+                winOrLoss = 'You Lose';
+            }
+            // score add win and loss //
+
+            if (winOrLoss === 'You Win'){
+                score.win += 1;
+            }
+            else {
+                score.loss +=1;
+            }
+            // score store in permanant in local storage //
+            localStorage.setItem('score',JSON.stringify(score));
+            console.log(winOrLoss);
+            console.log(`win:${score.win},Loss${score.loss}`);
+
+        }
+        // play Game -End //
+        // computer move //
+        function pickComputerMove(){
+            randomNumber = Math.random();
+            let result = '';
+            if (randomNumber < 0.5) {
+                result = 'heads';
+            }
+             else {
+                result = 'tails';
+            }
+            return result;
+        }
+        // check guess is computer pick answer true or false //
+        /*
+        if (guess === result){
+            console.log('You win');
+        }
+        else {
+            console.log('You Lose');
+        }
+        */
+       // use ternary operator //
+       // condition ? A : B 
+       //guess === result ? console.log('You Win') : console.log('You Lose');
+    </script>
+</body>
+</html>
